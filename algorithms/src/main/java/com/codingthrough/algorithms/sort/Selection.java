@@ -23,7 +23,7 @@ public class Selection {
      *
      * @param a the array to be sorted
      */
-    public static void sort(Comparable[] a) {
+    public static <T extends Comparable<T>> void sort(T[] a) {
         sort(a, 0, a.length - 1);
     }
 
@@ -34,7 +34,7 @@ public class Selection {
      * @param lo the lowest bound to be sorted
      * @param hi the highest bound to be sorted
      */
-    public static void sort(Comparable[] a, int lo, int hi) {
+    public static <T extends Comparable<T>> void sort(T[] a, int lo, int hi) {
         checkBounds(a.length, lo, hi);
 
         for (int i = lo; i < hi; i++) {
@@ -57,7 +57,7 @@ public class Selection {
      * @param a the array to be sorted
      * @param c the comparator specifying the order
      */
-    public static void sort(Object[] a, Comparator c) {
+    public static <T> void sort(T[] a, Comparator<T> c) {
         sort(a, 0, a.length - 1, c);
     }
 
@@ -69,7 +69,7 @@ public class Selection {
      * @param hi the highest bound to be sorted
      * @param c  the comparator specifying the order
      */
-    public static void sort(Object[] a, int lo, int hi, Comparator c) {
+    public static <T> void sort(T[] a, int lo, int hi, Comparator<T> c) {
         checkBounds(a.length, lo, hi);
 
         for (int i = 0; i < a.length - 1; i++) {
@@ -90,7 +90,7 @@ public class Selection {
      * @return true if {@param a} is less than {@param b}.
      */
     @SuppressWarnings("unchecked")
-    private static boolean less(Comparable a, Comparable b) {
+    private static <T extends Comparable<T>> boolean less(T a, T b) {
         return a.compareTo(b) < 0;
     }
 
@@ -98,15 +98,15 @@ public class Selection {
      * @return true if {@param a} is less than {@param b} using comparator {@param c}.
      */
     @SuppressWarnings("unchecked")
-    private static boolean less(Object a, Object b, Comparator c) {
+    private static <T> boolean less(T a, T b, Comparator<T> c) {
         return c.compare(a, b) < 0;
     }
 
     /**
      * Swaps item with index {@param a} and the item with index {@param b}.
      */
-    private static void swap(Object[] array, int a, int b) {
-        final Object temp = array[a];
+    private static <T> void swap(T[] array, int a, int b) {
+        final T temp = array[a];
         array[a] = array[b];
         array[b] = temp;
     }
@@ -114,14 +114,14 @@ public class Selection {
     /**
      * @return true if {@param a} array is sorted, otherwise false.
      */
-    public static boolean sorted(Comparable[] a) {
+    public static <T extends Comparable<T>> boolean sorted(T[] a) {
         return sorted(a, 0, a.length - 1);
     }
 
     /**
      * @return true if {@param a} array inside bounds is sorted, otherwise false.
      */
-    public static boolean sorted(Comparable[] a, int lo, int hi) {
+    public static <T extends Comparable<T>> boolean sorted(T[] a, int lo, int hi) {
         checkBounds(a.length, lo, hi);
 
         for (int i = lo + 1; i <= hi; i++) {
@@ -136,14 +136,14 @@ public class Selection {
     /**
      * @return true if {@param a} array is sorted, otherwise false.
      */
-    public static boolean sorted(Object[] a, Comparator c) {
+    public static <T> boolean sorted(T[] a, Comparator<T> c) {
         return sorted(a, 0, a.length - 1, c);
     }
 
     /**
      * @return true if {@param a} array inside bounds is sorted, otherwise false.
      */
-    public static boolean sorted(Object[] a, int lo, int hi, Comparator c) {
+    public static <T> boolean sorted(T[] a, int lo, int hi, Comparator<T> c) {
         checkBounds(a.length, lo, hi);
 
         for (int i = lo + 1; i <= hi; i++) {
