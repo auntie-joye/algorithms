@@ -178,7 +178,7 @@ public class Selection {
 
     public static void main(String[] args) {
         final Integer[] array = {4, 6, 2, 3, 1};
-        Selection.sort(array);
+        sort(array);
         System.out.println(Arrays.toString(array));
         System.out.println(sorted(array));
     }
