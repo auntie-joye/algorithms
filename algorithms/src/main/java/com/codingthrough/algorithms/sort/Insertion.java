@@ -39,7 +39,7 @@ public class Insertion {
         for (int i = lo + 1; i <= hi; i++) {
             T cur = a[i];
             for (int j = i; j >= lo; j--) {
-                if (j > lo && less(a[j], a[j - 1])) {
+                if (j > lo && less(cur, a[j - 1])) {
                     a[j] = a[j - 1];
                 } else {
                     a[j] = cur;
@@ -75,7 +75,7 @@ public class Insertion {
         for (int i = lo + 1; i <= hi; i++) {
             T cur = a[i];
             for (int j = i; j >= lo; j--) {
-                if (j > lo && less(a[j], a[j - 1], c)) {
+                if (j > lo && less(cur, a[j - 1], c)) {
                     a[j] = a[j - 1];
                 } else {
                     a[j] = cur;
