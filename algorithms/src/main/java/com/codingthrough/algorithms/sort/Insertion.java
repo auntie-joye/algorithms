@@ -1,6 +1,5 @@
 package com.codingthrough.algorithms.sort;
 
-import java.util.Arrays;
 import java.util.Comparator;
 
 /**
@@ -167,12 +166,5 @@ public class Insertion {
         if (hi < 0) {
             throw new IllegalArgumentException("[hi] index should be inside array bounds.");
         }
-    }
-
-    public static void main(String[] args) {
-        final Integer[] array = {4, 6, 2, 3, 1};
-        sort(array, 1, 3);
-        System.out.println(Arrays.toString(array));
-        System.out.println(sorted(array));
     }
 }
