@@ -31,15 +31,21 @@ public class Insertion {
      * Rearranges the array inside bounds in ascending order using the natural order.
      *
      * @param a  the array to be sorted
-     * @param lo the lowest bound to be sorted
-     * @param hi the highest bound to be sorted
+     * @param lo the lowest index
+     * @param hi the highest index
      */
     public static <T extends Comparable<T>> void sort(T[] a, int lo, int hi) {
         checkBounds(a.length, lo, hi);
 
-        for (int i = 1; i < a.length; i++) {
-            for (int j = i; j > 0 && less(a[j], a[j - 1]); j--) {
-                swap(a, j, j - 1);
+        for (int i = lo + 1; i <= hi; i++) {
+            T cur = a[i];
+            for (int j = i; j >= lo; j--) {
+                if (j > lo && less(a[j], a[j - 1])) {
+                    a[j] = a[j - 1];
+                } else {
+                    a[j] = cur;
+                    break;
+                }
             }
         }
 
@@ -60,16 +66,22 @@ public class Insertion {
      * Rearranges the array inside bounds in ascending order using the comparator.
      *
      * @param a  the array to be sorted
-     * @param lo the lowest bound to be sorted
-     * @param hi the highest bound to be sorted
+     * @param lo the lowest index
+     * @param hi the highest index
      * @param c  the comparator specifying the order
      */
     public static <T> void sort(T[] a, int lo, int hi, Comparator<T> c) {
         checkBounds(a.length, lo, hi);
 
-        for (int i = 1; i < a.length; i++) {
-            for (int j = i; j > 0 && less(a[j], a[j - 1], c); j--) {
-                swap(a, j, j - 1);
+        for (int i = lo + 1; i <= hi; i++) {
+            T cur = a[i];
+            for (int j = i; j >= lo; j--) {
+                if (j > lo && less(a[j], a[j - 1], c)) {
+                    a[j] = a[j - 1];
+                } else {
+                    a[j] = cur;
+                    break;
+                }
             }
         }
 
@@ -90,15 +102,6 @@ public class Insertion {
     @SuppressWarnings("unchecked")
     private static <T> boolean less(T a, T b, Comparator<T> c) {
         return c.compare(a, b) < 0;
-    }
-
-    /**
-     * Swaps item with index {@param a} and the item with index {@param b}.
-     */
-    private static <T> void swap(T[] array, int a, int b) {
-        final T temp = array[a];
-        array[a] = array[b];
-        array[b] = temp;
     }
 
     /**
@@ -149,8 +152,8 @@ public class Insertion {
      * Checks that indexes are inside array bounds and throws an exception if they aren't.
      *
      * @param length the length of the array
-     * @param lo     the lowest bound to be sorted
-     * @param hi     the highest bound to be sorted
+     * @param lo     the lowest index
+     * @param hi     the highest index
      */
     private static void checkBounds(int length, int lo, int hi) {
         if (lo > hi) {
@@ -168,7 +171,7 @@ public class Insertion {
 
     public static void main(String[] args) {
         final Integer[] array = {4, 6, 2, 3, 1};
-        sort(array);
+        sort(array, 1, 3);
         System.out.println(Arrays.toString(array));
         System.out.println(sorted(array));
     }
