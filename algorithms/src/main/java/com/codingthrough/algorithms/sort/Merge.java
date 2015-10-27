@@ -1,6 +1,6 @@
 package com.codingthrough.algorithms.sort;
 
-import java.util.Arrays;
+import java.lang.reflect.Array;
 import java.util.Comparator;
 
 /**
@@ -34,13 +34,12 @@ public class Merge extends SortSupport {
      * @param lo the lowest index
      * @param hi the highest index
      */
+    @SuppressWarnings("unchecked")
     public static <T extends Comparable<T>> void sort(T[] a, int lo, int hi) {
         checkBounds(a.length, lo, hi);
 
-        T[] aux = Arrays.copyOf(a, a.length);
+        T[] aux = (T[]) Array.newInstance(a.getClass().getComponentType(), a.length);
         sort(a, aux, lo, hi);
-
-        assert sorted(a, lo, hi);
     }
 
     /**
@@ -80,13 +79,12 @@ public class Merge extends SortSupport {
      * @param hi the highest index
      * @param c  the comparator specifying the order
      */
+    @SuppressWarnings("unchecked")
     public static <T> void sort(T[] a, int lo, int hi, Comparator<T> c) {
         checkBounds(a.length, lo, hi);
 
-        T[] aux = Arrays.copyOf(a, a.length);
+        T[] aux = (T[]) Array.newInstance(a.getClass().getComponentType(), a.length);
         sort(a, aux, lo, hi, c);
-
-        assert sorted(a, lo, hi, c);
     }
 
     /**
@@ -114,6 +112,9 @@ public class Merge extends SortSupport {
      * Merges a[lo .. mid] with a[mid+1 ..hi] using aux[lo .. hi].
      */
     private static <T extends Comparable<T>> void merge(T[] a, T[] aux, int lo, int mid, int hi) {
+        assert sorted(a, lo, mid);
+        assert sorted(a, mid + 1, hi);
+
         System.arraycopy(a, lo, aux, lo, hi + 1 - lo);
 
         int j = lo, k = mid + 1;
@@ -128,12 +129,17 @@ public class Merge extends SortSupport {
                 a[i] = aux[k++];
             }
         }
+
+        assert sorted(a, lo, hi);
     }
 
     /**
      * Merges a[lo .. mid] with a[mid+1 ..hi] using aux[lo .. hi].
      */
     private static <T> void merge(T[] a, T[] aux, int lo, int mid, int hi, Comparator<T> c) {
+        assert sorted(a, lo, mid, c);
+        assert sorted(a, mid + 1, hi, c);
+
         System.arraycopy(a, lo, aux, lo, hi + 1 - lo);
 
         int j = lo, k = mid + 1;
@@ -148,5 +154,7 @@ public class Merge extends SortSupport {
                 a[i] = aux[k++];
             }
         }
+
+        assert sorted(a, lo, hi, c);
     }
 }
