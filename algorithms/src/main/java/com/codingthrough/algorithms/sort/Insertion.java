@@ -37,14 +37,8 @@ public class Insertion {
         checkBounds(a.length, lo, hi);
 
         for (int i = lo + 1; i <= hi; i++) {
-            T cur = a[i];
-            for (int j = i; j >= lo; j--) {
-                if (j > lo && less(cur, a[j - 1])) {
-                    a[j] = a[j - 1];
-                } else {
-                    a[j] = cur;
-                    break;
-                }
+            for (int j = i; j > lo && less(a[j], a[j - 1]); j--) {
+                swap(a, j, j - 1);
             }
         }
 
@@ -73,14 +67,8 @@ public class Insertion {
         checkBounds(a.length, lo, hi);
 
         for (int i = lo + 1; i <= hi; i++) {
-            T cur = a[i];
-            for (int j = i; j >= lo; j--) {
-                if (j > lo && less(cur, a[j - 1], c)) {
-                    a[j] = a[j - 1];
-                } else {
-                    a[j] = cur;
-                    break;
-                }
+            for (int j = i; j > lo && less(a[j], a[j - 1], c); j--) {
+                swap(a, j, j - 1);
             }
         }
 
@@ -101,6 +89,15 @@ public class Insertion {
     @SuppressWarnings("unchecked")
     private static <T> boolean less(T a, T b, Comparator<T> c) {
         return c.compare(a, b) < 0;
+    }
+
+    /**
+     * Swaps item with index {@param a} and the item with index {@param b}.
+     */
+    private static <T> void swap(T[] array, int a, int b) {
+        final T temp = array[a];
+        array[a] = array[b];
+        array[b] = temp;
     }
 
     /**
