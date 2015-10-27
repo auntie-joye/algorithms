@@ -4,19 +4,19 @@ import java.lang.reflect.Array;
 import java.util.Comparator;
 
 /**
- * The <tt>Merge</tt> provides a number of static methods to sort an array
- * using top-down merge sort algorithm.
+ * The <tt>MergeBU</tt> provides a number of static methods to sort an array
+ * using bottom-up merge sort algorithm.
  * <p>
  * For additional documentation,
  * see <a href="https://en.wikipedia.org/wiki/Merge_sort">Wikipedia article - Merge Sort</a>.
  * </p>
- * For an bottom-up version, see {@link MergeBU}.
+ * For an top-down version, see {@link Merge}.
  */
-public class Merge extends SortSupport {
+public class MergeBU extends SortSupport {
     /**
      * This class should not be instantiated.
      */
-    private Merge() {
+    private MergeBU() {
     }
 
     /**
@@ -52,14 +52,12 @@ public class Merge extends SortSupport {
      * @param hi  the highest index
      */
     private static <T extends Comparable<T>> void sort(T[] a, T[] aux, int lo, int hi) {
-        if (lo >= hi) {
-            return;
+        int n = hi - lo + 1;
+        for (int sz = 1; sz < n; sz *= 2) {
+            for (int i = lo; i < n; i += 2 * sz) {
+                merge(a, aux, i, i + sz - 1, Math.min(n, i + 2 * sz - 1));
+            }
         }
-
-        int mid = lo + (hi - lo) / 2;
-        sort(a, aux, lo, mid);
-        sort(a, aux, mid + 1, hi);
-        merge(a, aux, lo, mid, hi);
     }
 
     /**
@@ -98,14 +96,12 @@ public class Merge extends SortSupport {
      * @param c   the comparator specifying the order
      */
     private static <T> void sort(T[] a, T[] aux, int lo, int hi, Comparator<T> c) {
-        if (lo >= hi) {
-            return;
+        int n = hi - lo + 1;
+        for (int sz = 1; sz < n; sz *= 2) {
+            for (int i = lo; i < n; i += 2 * sz) {
+                merge(a, aux, i, i + sz - 1, Math.min(n, i + 2 * sz - 1), c);
+            }
         }
-
-        int mid = lo + (hi - lo) / 2;
-        sort(a, aux, lo, mid, c);
-        sort(a, aux, mid + 1, hi, c);
-        merge(a, aux, lo, mid, hi, c);
     }
 
 
