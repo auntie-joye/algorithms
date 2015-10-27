@@ -1,6 +1,5 @@
 package com.codingthrough.algorithms.sort;
 
-import java.util.Arrays;
 import java.util.Comparator;
 
 /**
@@ -31,8 +30,8 @@ public class Selection {
      * Rearranges the array inside bounds in ascending order using the natural order.
      *
      * @param a  the array to be sorted
-     * @param lo the lowest bound to be sorted
-     * @param hi the highest bound to be sorted
+     * @param lo the lowest index
+     * @param hi the highest index
      */
     public static <T extends Comparable<T>> void sort(T[] a, int lo, int hi) {
         checkBounds(a.length, lo, hi);
@@ -65,16 +64,16 @@ public class Selection {
      * Rearranges the array inside bounds in ascending order using the comparator.
      *
      * @param a  the array to be sorted
-     * @param lo the lowest bound to be sorted
-     * @param hi the highest bound to be sorted
+     * @param lo the lowest index
+     * @param hi the highest index
      * @param c  the comparator specifying the order
      */
     public static <T> void sort(T[] a, int lo, int hi, Comparator<T> c) {
         checkBounds(a.length, lo, hi);
 
-        for (int i = 0; i < a.length - 1; i++) {
+        for (int i = lo; i < hi; i++) {
             int min = i;
-            for (int j = i + 1; j < a.length; j++) {
+            for (int j = i + 1; j <= hi; j++) {
                 if (less(a[j], a[min], c)) {
                     min = j;
                 }
@@ -159,8 +158,8 @@ public class Selection {
      * Checks that indexes are inside array bounds and throws an exception if they aren't.
      *
      * @param length the length of the array
-     * @param lo     the lowest bound to be sorted
-     * @param hi     the highest bound to be sorted
+     * @param lo     the lowest index
+     * @param hi     the highest index
      */
     private static void checkBounds(int length, int lo, int hi) {
         if (lo > hi) {
@@ -174,12 +173,5 @@ public class Selection {
         if (hi < 0) {
             throw new IllegalArgumentException("[hi] index should be inside array bounds.");
         }
-    }
-
-    public static void main(String[] args) {
-        final Integer[] array = {4, 6, 2, 3, 1};
-        sort(array);
-        System.out.println(Arrays.toString(array));
-        System.out.println(sorted(array));
     }
 }
