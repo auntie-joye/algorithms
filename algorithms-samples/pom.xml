@@ -8,8 +8,8 @@
         <artifactId>algorithms-parent</artifactId>
         <version>1.0</version>
     </parent>
-    <artifactId>algorithms</artifactId>
+    <artifactId>algorithms-samples</artifactId>
     <packaging>jar</packaging>
 
-    <name>Java Algorithms</name>
+    <name>Java Algorithms Samples</name>
 </project>

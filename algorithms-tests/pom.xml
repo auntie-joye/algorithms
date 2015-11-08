@@ -8,8 +8,17 @@
         <artifactId>algorithms-parent</artifactId>
         <version>1.0</version>
     </parent>
-    <artifactId>algorithms</artifactId>
+    <artifactId>algorithms-tests</artifactId>
     <packaging>jar</packaging>
 
-    <name>Java Algorithms</name>
+    <name>Java Algorithms Unit Tests</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.codingthrough.algorithms</groupId>
+            <artifactId>algorithms</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 </project>
