@@ -73,7 +73,7 @@ public abstract class SearchSupport {
     }
 
     /**
-     * Checks that indexes are inside array bounds and throws an exception if they aren't.
+     * Checks that indexes are inside array bounds, throws an exception if they aren't.
      *
      * @param length the length of the array
      * @param lo     the lowest index

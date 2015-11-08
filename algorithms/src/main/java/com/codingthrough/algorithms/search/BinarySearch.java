@@ -6,7 +6,7 @@ import java.util.Comparator;
  * The <tt>BinarySearch</tt> provides a static method to search the element in the sorted array
  * using binary search algorithm.
  * <p>
- * For additional documentation,
+ * For additional information,
  * see <a href="https://en.wikipedia.org/wiki/Binary_search_algorithm">Wikipedia article - Binary Search</a>.
  * </p>
  */
@@ -18,40 +18,45 @@ public class BinarySearch extends SearchSupport {
     }
 
     /**
-     * Finds the element in the sorted array.
+     * Finds the element in the sorted array, uses <tt>Comparable.compareTo()</tt>
+     * method for comparison.
      *
      * @param a the sorted array
      * @param e the element to find
+     * @return index of the element if it's found, otherwise -1.
      */
-    public static <T extends Comparable<T>> int indexOf(T[] a, T e) {
-        return indexOf(a, 0, a.length - 1, e);
+    public static <T extends Comparable<T>> int rank(T[] a, T e) {
+        return rank(a, 0, a.length - 1, e);
     }
 
     /**
-     * Finds the element in the sorted array inside bounds.
+     * Finds the element in the sorted array inside bounds, uses <tt>Comparable.compareTo()</tt>
+     * method for comparison.
      *
      * @param a  the sorted array
      * @param lo the lowest index
      * @param hi the highest index
      * @param e  the element to find
+     * @return index of the element if it's found, otherwise -1.
      */
-    public static <T extends Comparable<T>> int indexOf(T[] a, int lo, int hi, T e) {
+    public static <T extends Comparable<T>> int rank(T[] a, int lo, int hi, T e) {
         checkBounds(a.length, lo, hi);
 
         assert sorted(a, lo, hi);
-
-        return indexOfRecursive(a, lo, hi, e);
+        return rankRecursive(a, lo, hi, e);
     }
 
     /**
-     * Finds the element in the sorted array inside bounds.
+     * Finds the element in the sorted array inside bounds, uses <tt>Comparable.compareTo()</tt>
+     * method for comparison.
      *
      * @param a  the sorted array
      * @param lo the lowest index
      * @param hi the highest index
      * @param e  the element to find
+     * @return index of the element if it's found, otherwise -1.
      */
-    private static <T extends Comparable<T>> int indexOfRecursive(T[] a, int lo, int hi, T e) {
+    private static <T extends Comparable<T>> int rankRecursive(T[] a, int lo, int hi, T e) {
         if (lo >= hi) {
             return a[lo].compareTo(e) == 0 ? lo : -1;
         }
@@ -59,57 +64,54 @@ public class BinarySearch extends SearchSupport {
         int mid = lo + (hi - lo) / 2;
 
         return less(a[mid], e)
-                ? indexOfRecursive(a, mid + 1, hi, e)
-                : indexOfRecursive(a, mid, hi, e);
+                ? rankRecursive(a, mid + 1, hi, e)
+                : rankRecursive(a, mid, hi, e);
     }
 
     /**
-     * Finds the element in the sorted array.
+     * Finds the element in the sorted array, uses <tt>Comparator.compare()</tt>
+     * method for comparison.
      *
      * @param a the sorted array
      * @param e the element to find
      * @param c the comparator specifying the order
+     * @return index of the element if it's found, otherwise -1.
      */
-    public static <T> int indexOf(T[] a, T e, Comparator<T> c) {
-        return indexOf(a, 0, a.length - 1, e, c);
+    public static <T> int rank(T[] a, T e, Comparator<T> c) {
+        return rank(a, 0, a.length - 1, e, c);
     }
 
     /**
-     * Finds the element in the sorted array inside bounds.
+     * Finds the element in the sorted array inside bounds, uses <tt>Comparator.compare()</tt>
+     * method for comparison.
      *
      * @param a  the sorted array
      * @param lo the lowest index
      * @param hi the highest index
      * @param e  the element to find
      * @param c  the comparator specifying the order
+     * @return index of the element if it's found, otherwise -1.
      */
-    public static <T> int indexOf(T[] a, int lo, int hi, T e, Comparator<T> c) {
+    public static <T> int rank(T[] a, int lo, int hi, T e, Comparator<T> c) {
         checkBounds(a.length, lo, hi);
 
         assert sorted(a, lo, hi, c);
 
-        return indexOfRecursive(a, lo, hi, e, c);
-    }
+        int rank = -1;
+        while (lo <= hi) {
+            int mid = lo + (hi - lo) / 2;
+            int cmp = c.compare(a[mid], e);
 
-    /**
-     * Finds the element in the sorted array inside bounds.
-     *
-     * @param a  the sorted array
-     * @param lo the lowest index
-     * @param hi the highest index
-     * @param e  the element to find
-     * @param c  the comparator specifying the order
-     */
-    private static <T> int indexOfRecursive(T[] a, int lo, int hi, T e, Comparator<T> c) {
-        if (lo >= hi) {
-            return c.compare(a[lo], e) == 0 ? lo : -1;
+            if (cmp < 0) {
+                lo = mid + 1;
+            } else if (cmp > 0) {
+                hi = mid - 1;
+            } else {
+                rank = mid;
+            }
         }
 
-        int mid = lo + (hi - lo) / 2;
-
-        return less(a[mid], e, c)
-                ? indexOfRecursive(a, mid + 1, hi, e, c)
-                : indexOfRecursive(a, mid, hi, e, c);
+        return rank;
     }
 }
 
