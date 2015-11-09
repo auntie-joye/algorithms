@@ -1,7 +1,5 @@
 package com.codingthrough.algorithms;
 
-import java.util.function.Supplier;
-
 /**
  * This class consists of {@code static} utility methods for operating
  * on objects.
@@ -11,96 +9,6 @@ public class Objects {
      * This class should not be instantiated.
      */
     private Objects() {
-    }
-
-    /**
-     * Checks that the specified object reference is not {@code null} and
-     * throws a customized {@link IllegalArgumentException} if it is. This
-     * method is designed primarily for doing parameter validation in methods
-     * and constructors.
-     *
-     * @param obj the object reference to check for nullity
-     * @throws IllegalArgumentException if {@code obj} is {@code null}
-     */
-    public static void requireNotNull(Object obj) {
-        if (obj == null) {
-            throw new IllegalArgumentException();
-        }
-    }
-
-    /**
-     * Checks that the specified object reference is not {@code null} and
-     * throws a customized {@link IllegalArgumentException} if it is. This
-     * method is designed primarily for doing parameter validation in methods
-     * and constructors.
-     *
-     * @param obj     the object reference to check for nullity
-     * @param message the message to be used in exception construction
-     * @throws IllegalArgumentException if {@code obj} is {@code null}
-     */
-    public static void requireNotNull(Object obj, String message) {
-        if (obj == null) {
-            throw new IllegalArgumentException(message);
-        }
-    }
-
-    /**
-     * Checks that the specified object reference is not {@code null} and
-     * throws a customized {@link IllegalArgumentException} if it is. This
-     * method is designed primarily for doing parameter validation in methods
-     * and constructors.
-     *
-     * @param obj             the object reference to check for nullity
-     * @param messageSupplier supplier of the detail message to be
-     *                        used in the event that a {@code IllegalArgumentException} is thrown
-     * @throws IllegalArgumentException if {@code obj} is {@code null}
-     */
-    public static void requireNotNull(Object obj, Supplier<String> messageSupplier) {
-        if (obj == null) {
-            throw new IllegalArgumentException(messageSupplier.get());
-        }
-    }
-
-    /**
-     * Checks that the specified object reference is {@code null} and
-     * throws a customized {@link IllegalArgumentException} if it is not.
-     *
-     * @param obj the object reference to check for not nullity
-     * @throws IllegalArgumentException if {@code obj} is not {@code null}
-     */
-    public static void requireNull(Object obj) {
-        if (obj != null) {
-            throw new IllegalArgumentException();
-        }
-    }
-
-    /**
-     * Checks that the specified object reference is {@code null} and
-     * throws a customized {@link IllegalArgumentException} if it is not.
-     *
-     * @param obj     the object reference to check for not nullity
-     * @param message the message to be used in exception construction
-     * @throws IllegalArgumentException if {@code obj} is not {@code null}
-     */
-    public static void requireNull(Object obj, String message) {
-        if (obj != null) {
-            throw new IllegalArgumentException(message);
-        }
-    }
-
-    /**
-     * Checks that the specified object reference is {@code null} and
-     * throws a customized {@link IllegalArgumentException} if it is not.
-     *
-     * @param obj             the object reference to check for not nullity
-     * @param messageSupplier supplier of the detail message to be
-     *                        used in the event that a {@code IllegalArgumentException} is thrown
-     * @throws IllegalArgumentException if {@code obj} is not {@code null}
-     */
-    public static void requireNull(Object obj, Supplier<String> messageSupplier) {
-        if (obj != null) {
-            throw new IllegalArgumentException(messageSupplier.get());
-        }
     }
 
     /**
