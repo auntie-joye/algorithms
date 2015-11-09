@@ -13,14 +13,14 @@ import static org.junit.Assert.fail;
  */
 public class ObjectsTest {
     @Test
-    public void successfulParameterCheckOnNullWhenObjectIsNotNull() {
+    public void successfulParameterCheckOnNotNullWhenObjectIsNotNull() {
         final Integer obj = 1;
 
         Objects.requireNotNull(obj);
     }
 
     @Test
-    public void failedParameterCheckOnNullWhenObjectIsNull() {
+    public void failedParameterCheckOnNotNullWhenObjectIsNull() {
         final Integer obj = null;
 
         try {
@@ -32,7 +32,7 @@ public class ObjectsTest {
     }
 
     @Test
-    public void successfulParameterCheckOnNullWithMessageWhenObjectIsNotNull() {
+    public void successfulParameterCheckOnNotNullWithMessageWhenObjectIsNotNull() {
         final Integer obj = 1;
         final String message = "Should be not null.";
 
@@ -40,7 +40,7 @@ public class ObjectsTest {
     }
 
     @Test
-    public void failedParameterCheckOnNullWithMessageWhenObjectIsNull() {
+    public void failedParameterCheckOnNotNullWithMessageWhenObjectIsNull() {
         final Integer obj = null;
         final String message = "Should be not null.";
 
@@ -54,7 +54,7 @@ public class ObjectsTest {
     }
 
     @Test
-    public void successfulParameterCheckOnNullWithMessageSupplierWhenObjectIsNotNull() {
+    public void successfulParameterCheckOnNotNullWithMessageSupplierWhenObjectIsNotNull() {
         final Integer obj = 1;
         final Supplier<String> messageSupplier = () -> "Should not be null.";
 
@@ -62,13 +62,75 @@ public class ObjectsTest {
     }
 
     @Test
-    public void failedParameterCheckOnNullWithMessageSupplierWhenObjectIsNull() {
+    public void failedParameterCheckOnNotNullWithMessageSupplierWhenObjectIsNull() {
         final Integer obj = null;
         final Supplier<String> messageSupplier = () -> "Should not be null.";
 
         try {
             Objects.requireNotNull(obj, messageSupplier);
             fail("Should throw exception when parameter is null.");
+        } catch (IllegalArgumentException e) {
+            // ok, it's expected exception
+        }
+    }
+
+    @Test
+    public void successfulParameterCheckOnNullWhenObjectIsNull() {
+        final Integer obj = null;
+
+        Objects.requireNull(obj);
+    }
+
+    @Test
+    public void failedParameterCheckOnNullWhenObjectIsNotNull() {
+        final Integer obj = 2;
+
+        try {
+            Objects.requireNull(obj);
+            fail("Should throw exception when parameter is not null.");
+        } catch (IllegalArgumentException e) {
+            // ok, it's expected exception
+        }
+    }
+
+    @Test
+    public void successfulParameterCheckOnNullWithMessageWhenObjectIsNull() {
+        final Integer obj = null;
+        final String message = "Should be null.";
+
+        Objects.requireNull(obj, message);
+    }
+
+    @Test
+    public void failedParameterCheckOnNullWithMessageWhenObjectIsNotNull() {
+        final Integer obj = 2;
+        final String message = "Should be null.";
+
+        try {
+            Objects.requireNull(obj, message);
+            fail("Should throw exception when parameter is not null.");
+        } catch (IllegalArgumentException e) {
+            // ok, it's expected exception
+            assertThat(e.getMessage(), is(message));
+        }
+    }
+
+    @Test
+    public void successfulParameterCheckOnNullWithMessageSupplierWhenObjectIsNull() {
+        final Integer obj = null;
+        final Supplier<String> messageSupplier = () -> "Should be null.";
+
+        Objects.requireNull(obj, messageSupplier);
+    }
+
+    @Test
+    public void failedParameterCheckOnNullWithMessageSupplierWhenObjectIsNotNull() {
+        final Integer obj = 2;
+        final Supplier<String> messageSupplier = () -> "Should be null.";
+
+        try {
+            Objects.requireNull(obj, messageSupplier);
+            fail("Should throw exception when parameter is not null.");
         } catch (IllegalArgumentException e) {
             // ok, it's expected exception
         }
@@ -113,14 +175,14 @@ public class ObjectsTest {
     public void equalsReturnsFalseWhenTheLeftReferenceIsNull() {
         final Integer obj = 2;
 
-        assertThat(Objects.equals(obj, null), is(false));
+        assertThat(Objects.equals(null, obj), is(false));
     }
 
     @Test
     public void equalsReturnsFalseWhenTheRightReferenceIsNull() {
         final Integer obj = 2;
 
-        assertThat(Objects.equals(null, obj), is(false));
+        assertThat(Objects.equals(obj, null), is(false));
     }
 
     @Test
