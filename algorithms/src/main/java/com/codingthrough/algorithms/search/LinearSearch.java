@@ -91,7 +91,6 @@ public class LinearSearch extends SearchSupport {
      * @param e the element to find duplicates number
      * @return number of duplicates
      * @throws IllegalArgumentException if the specified array is {@code null}
-     * @throws IllegalArgumentException if the specified array is {@code null}
      * @throws IllegalArgumentException if the specified bounds are outside of array bounds
      */
     public static <T> int duplicates(@Nonnull T[] a, int lo, int hi, @Nullable T e) {

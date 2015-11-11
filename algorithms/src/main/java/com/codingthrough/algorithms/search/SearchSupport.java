@@ -102,6 +102,8 @@ public abstract class SearchSupport {
 
     /**
      * @return true if {@param a} array is sorted, otherwise false
+     * @throws IllegalArgumentException if the specified array is {@code null}
+     * @throws IllegalArgumentException if the specified comparator is {@code null}
      */
     public static <T> boolean sorted(@Nonnull T[] a, @Nonnull Comparator<T> c) {
         return sorted(a, 0, a.length - 1, c);

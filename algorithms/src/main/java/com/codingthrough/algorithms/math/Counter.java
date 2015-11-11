@@ -40,6 +40,8 @@ public class Counter implements Comparable<Counter>, Serializable {
     /**
      * Creates a new counter with the specified name
      * and zero as a start position.
+     *
+     * @throws IllegalArgumentException if the specified name is {@code null}
      */
     public Counter(@Nonnull String name) {
         requireNotNull(name, "The name of the counter should not be null.");
@@ -58,6 +60,8 @@ public class Counter implements Comparable<Counter>, Serializable {
     /**
      * Creates a new counter with the specified name
      * and the specified count as a start position.
+     *
+     * @throws IllegalArgumentException if the specified name is {@code null}
      */
     public Counter(@Nonnull String name, int count) {
         requireNotNull(name, "The name of the counter should not be null.");
@@ -69,6 +73,8 @@ public class Counter implements Comparable<Counter>, Serializable {
     /**
      * Creates a new counter based on the specified
      * counter name and current counter state.
+     *
+     * @throws IllegalArgumentException if the specified counter is {@code null}
      */
     public Counter(@Nonnull Counter that) {
         requireNotNull(that, "Counter [that] should not be null.");
@@ -121,6 +127,9 @@ public class Counter implements Comparable<Counter>, Serializable {
         return name + ": " + count;
     }
 
+    /**
+     * @throws IllegalArgumentException if the specified counter is {@code null}
+     */
     @Override
     public int compareTo(@Nonnull Counter that) {
         requireNotNull(that, "Counter [that] should not be null.");
