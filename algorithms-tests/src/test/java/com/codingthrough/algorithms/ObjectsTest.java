@@ -3,6 +3,7 @@ package com.codingthrough.algorithms;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -77,5 +78,29 @@ public class ObjectsTest {
         final Integer b = 21;
 
         assertThat(Objects.equals(a, b), is(false));
+    }
+
+    @Test
+    public void hashcodeReturnsDifferentValuesForDifferentListOfObjects() {
+        final int h1 = Objects.hashCode(1, "2", new Object());
+        final int h2 = Objects.hashCode(11, "22", new Object());
+
+        assertThat(h1, is(not(h2)));
+    }
+
+    @Test
+    public void hashcodeReturnsDifferentValuesForTheSameListOfObjectsInDifferentOrder() {
+        final int h1 = Objects.hashCode(1, "2", new Object());
+        final int h2 = Objects.hashCode("2", new Object(), 1);
+
+        assertThat(h1, is(not(h2)));
+    }
+
+    @Test
+    public void hashcodeReturnsEqualValuesForTheSameListOfObjectsInTheSameOrder() {
+        final int h1 = Objects.hashCode(1, "2", new Object());
+        final int h2 = Objects.hashCode(1, "2", new Object());
+
+        assertThat(h1, is(h2));
     }
 }

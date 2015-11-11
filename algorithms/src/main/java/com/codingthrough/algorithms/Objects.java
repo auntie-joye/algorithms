@@ -1,5 +1,7 @@
 package com.codingthrough.algorithms;
 
+import java.util.Arrays;
+
 /**
  * This class consists of {@code static} utility methods for operating
  * on objects.
@@ -51,5 +53,18 @@ public class Objects {
      */
     public static boolean equals(Object a, Object b) {
         return (a == b) || (a != null && a.equals(b));
+    }
+
+    /**
+     * Returns a generated hash code for a sequence of input values. The hash
+     * code is generated as if all the input values were placed into an
+     * array, and that array were hashed by calling {@link
+     * Arrays#hashCode(Object[])}.
+     *
+     * @param values the values to be hashed
+     * @return a hash value of the sequence of input values
+     */
+    public static int hashCode(Object... values) {
+        return Arrays.hashCode(values);
     }
 }
