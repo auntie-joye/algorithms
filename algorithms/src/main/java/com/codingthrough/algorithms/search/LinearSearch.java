@@ -1,10 +1,11 @@
 package com.codingthrough.algorithms.search;
 
+import com.codingthrough.algorithms.Preconditions;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import static com.codingthrough.algorithms.Preconditions.requireNotNull;
-import static com.codingthrough.algorithms.collection.ArrayPreconditions.requireBounds;
+import static com.codingthrough.algorithms.adt.ArrayPreconditions.ensureBounds;
 
 /**
  * The <tt>LinearSearch</tt> provides a static method to search the element in the array
@@ -47,8 +48,8 @@ public class LinearSearch extends SearchSupport {
      * @throws IllegalArgumentException if the specified bounds are outside of array bounds
      */
     public static <T> int indexOf(@Nonnull T[] a, int lo, int hi, @Nullable T e) {
-        requireNotNull(a, "Array [a] should not be null.");
-        requireBounds(a.length, lo, hi);
+        Preconditions.ensureNotNull(a, "Array [a] should not be null.");
+        ensureBounds(a.length, lo, hi);
 
         int index = -1;
         if (e == null) {
@@ -94,8 +95,8 @@ public class LinearSearch extends SearchSupport {
      * @throws IllegalArgumentException if the specified bounds are outside of array bounds
      */
     public static <T> int duplicates(@Nonnull T[] a, int lo, int hi, @Nullable T e) {
-        requireNotNull(a, "Array [a] should not be null.");
-        requireBounds(a.length, lo, hi);
+        Preconditions.ensureNotNull(a, "Array [a] should not be null.");
+        ensureBounds(a.length, lo, hi);
 
         int count = 0;
         if (e == null) {

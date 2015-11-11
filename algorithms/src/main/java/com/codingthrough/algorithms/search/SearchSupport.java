@@ -1,11 +1,12 @@
 package com.codingthrough.algorithms.search;
 
+import com.codingthrough.algorithms.Preconditions;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Comparator;
 
-import static com.codingthrough.algorithms.Preconditions.requireNotNull;
-import static com.codingthrough.algorithms.collection.ArrayPreconditions.requireBounds;
+import static com.codingthrough.algorithms.adt.ArrayPreconditions.ensureBounds;
 
 /**
  * This class consists of {@code static} utility methods for different
@@ -25,8 +26,8 @@ public abstract class SearchSupport {
      */
     @SuppressWarnings("unchecked")
     public static <T extends Comparable<T>> boolean less(@Nonnull T a, @Nonnull T b) {
-        requireNotNull(a, "Argument [a] should not be null.");
-        requireNotNull(b, "Argument [b] should not be null.");
+        Preconditions.ensureNotNull(a, "Argument [a] should not be null.");
+        Preconditions.ensureNotNull(b, "Argument [b] should not be null.");
 
         return a.compareTo(b) < 0;
     }
@@ -41,7 +42,7 @@ public abstract class SearchSupport {
      */
     @SuppressWarnings("unchecked")
     public static <T> boolean less(@Nullable T a, @Nullable T b, @Nonnull Comparator<T> c) {
-        requireNotNull(c, "Comparator [c] should not be null.");
+        Preconditions.ensureNotNull(c, "Comparator [c] should not be null.");
 
         return c.compare(a, b) < 0;
     }
@@ -53,8 +54,8 @@ public abstract class SearchSupport {
      */
     @SuppressWarnings("unchecked")
     public static <T extends Comparable<T>> boolean greater(@Nonnull T a, @Nonnull T b) {
-        requireNotNull(a, "Argument [a] should not be null.");
-        requireNotNull(b, "Argument [b] should not be null.");
+        Preconditions.ensureNotNull(a, "Argument [a] should not be null.");
+        Preconditions.ensureNotNull(b, "Argument [b] should not be null.");
 
         return a.compareTo(b) > 0;
     }
@@ -69,7 +70,7 @@ public abstract class SearchSupport {
      */
     @SuppressWarnings("unchecked")
     public static <T> boolean greater(@Nullable T a, @Nullable T b, @Nonnull Comparator<T> c) {
-        requireNotNull(c, "Comparator [c] should not be null.");
+        Preconditions.ensureNotNull(c, "Comparator [c] should not be null.");
 
         return c.compare(a, b) > 0;
     }
@@ -88,8 +89,8 @@ public abstract class SearchSupport {
      * @throws IllegalArgumentException if the specified bounds are outside of array bounds
      */
     public static <T extends Comparable<T>> boolean sorted(@Nonnull T[] a, int lo, int hi) {
-        requireNotNull(a, "Array [a] should not be null.");
-        requireBounds(a.length, lo, hi);
+        Preconditions.ensureNotNull(a, "Array [a] should not be null.");
+        ensureBounds(a.length, lo, hi);
 
         for (int i = lo + 1; i <= hi; i++) {
             if (less(a[i], a[i - 1])) {
@@ -120,9 +121,9 @@ public abstract class SearchSupport {
      * @throws IllegalArgumentException if the specified comparator is {@code null}
      */
     public static <T> boolean sorted(@Nonnull T[] a, int lo, int hi, @Nonnull Comparator<T> c) {
-        requireNotNull(a, "Array [a] should not be null.");
-        requireBounds(a.length, lo, hi);
-        requireNotNull(c, "Comparator [c] should not be null.");
+        Preconditions.ensureNotNull(a, "Array [a] should not be null.");
+        ensureBounds(a.length, lo, hi);
+        Preconditions.ensureNotNull(c, "Comparator [c] should not be null.");
 
         for (int i = lo + 1; i <= hi; i++) {
             if (less(a[i], a[i - 1], c)) {
