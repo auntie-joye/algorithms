@@ -1,18 +1,22 @@
-package com.codingthrough.algorithms.data.impl;
+package com.codingthrough.algorithms.adt.bag;
 
-import com.codingthrough.algorithms.data.Bag;
+import com.codingthrough.algorithms.adt.ArrayIterator;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.lang.reflect.Array;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+
+import static com.codingthrough.algorithms.Preconditions.ensureNotNull;
 
 /**
  * This implementation uses a singly-linked list with a static nested class Node.
  */
 public class LinkedBag<E> extends AbstractBag<E> {
     /**
-     * Pointer to first node.
+     * Pointer to the first node.
      */
     private Node first;
 
@@ -27,9 +31,9 @@ public class LinkedBag<E> extends AbstractBag<E> {
      * bag.
      *
      * @param bag the bag whose elements are to be placed into this bag
-     * @throws NullPointerException if the specified bag is null
+     * @throws IllegalArgumentException if the specified bag is {@code null}
      */
-    public LinkedBag(final Bag<E> bag) {
+    public LinkedBag(@Nonnull final Bag<E> bag) {
         this();
         addAll(bag);
     }
@@ -39,9 +43,9 @@ public class LinkedBag<E> extends AbstractBag<E> {
      * array.
      *
      * @param a the array whose elements are to be placed into this bag
-     * @throws NullPointerException if the specified array is null
+     * @throws IllegalArgumentException if the specified array is {@code null}
      */
-    public LinkedBag(final E[] a) {
+    public LinkedBag(@Nonnull final E[] a) {
         this();
         addAll(a);
     }
@@ -50,7 +54,7 @@ public class LinkedBag<E> extends AbstractBag<E> {
      * {@inheritDoc}
      */
     @Override
-    public boolean add(final E item) {
+    public boolean add(@Nullable final E item) {
         first = new Node(item, first);
         size++;
         modCount++;
@@ -59,12 +63,36 @@ public class LinkedBag<E> extends AbstractBag<E> {
 
     /**
      * {@inheritDoc}
+     *
+     * @throws IllegalArgumentException if the specified array is {@code null}
      */
     @Override
-    public boolean addAll(final E[] a) {
+    public boolean addAll(@Nonnull final E[] a) {
+        return addAll(new ArrayIterator<>(a));
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws IllegalArgumentException if the specified collection is {@code null}
+     */
+    @Override
+    public boolean addAll(@Nonnull final Iterable<E> a) {
+        return addAll(a.iterator());
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws IllegalArgumentException if the specified iterator is {@code null}
+     */
+    @Override
+    public boolean addAll(@Nonnull Iterator<E> a) {
+        ensureNotNull(a);
+
         boolean added = false;
-        for (E item : a) {
-            if (add(item)) {
+        while (a.hasNext()) {
+            if (add(a.next())) {
                 added = true;
             }
         }
@@ -76,15 +104,19 @@ public class LinkedBag<E> extends AbstractBag<E> {
      * {@inheritDoc}
      */
     @Override
-    public boolean addAll(final Bag<E> bag) {
-        boolean added = false;
-        for (E item : bag) {
-            if (add(item)) {
-                added = true;
-            }
+    public void clear() {
+        modCount++;
+
+        Node cur = first;
+        while (cur != null) {
+            Node next = cur.next;
+            cur.item = null;
+            cur.next = null;
+            cur = next;
         }
 
-        return added;
+        first = null;
+        size = 0;
     }
 
     /**
@@ -104,10 +136,14 @@ public class LinkedBag<E> extends AbstractBag<E> {
 
     /**
      * {@inheritDoc}
+     *
+     * @throws IllegalArgumentException if the specified array {@code null}
      */
     @Override
     @SuppressWarnings("unchecked")
-    public <T> T[] toArray(T[] a) {
+    public <T> T[] toArray(@Nonnull T[] a) {
+        ensureNotNull(a);
+
         if (a.length < size) {
             a = (T[]) Array.newInstance(a.getClass().getComponentType(), size);
         }
@@ -142,7 +178,7 @@ public class LinkedBag<E> extends AbstractBag<E> {
     }
 
     /**
-     * The bag-iterator is <i>fail-fast</i>: if the baf is structurally
+     * The bag-iterator is <i>fail-fast</i>: if the bag is structurally
      * modified at any time after the Iterator is created, in any way,
      * the bag-iterator will throw a {@code ConcurrentModificationException}.
      * <p>

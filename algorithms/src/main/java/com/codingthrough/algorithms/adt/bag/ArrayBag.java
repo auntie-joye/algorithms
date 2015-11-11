@@ -1,11 +1,13 @@
-package com.codingthrough.algorithms.data.impl;
+package com.codingthrough.algorithms.adt.bag;
 
-import com.codingthrough.algorithms.data.Bag;
-
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+
+import static com.codingthrough.algorithms.Preconditions.ensureNotNull;
 
 /**
  * This implementation uses a resizing array.
@@ -50,10 +52,13 @@ public class ArrayBag<E> extends AbstractBag<E> {
      * bag.
      *
      * @param bag the bag whose elements are to be placed into this bag
-     * @throws NullPointerException if the specified bag is null
+     * @throws IllegalArgumentException if the specified bag is {@code null}
      */
-    public ArrayBag(final Bag<E> bag) {
-        this(bag.size());
+    @SuppressWarnings("unchecked")
+    public ArrayBag(@Nonnull final Bag<E> bag) {
+        ensureNotNull(bag);
+
+        items = (E[]) new Object[bag.size()];
         addAll(bag);
     }
 
@@ -62,10 +67,13 @@ public class ArrayBag<E> extends AbstractBag<E> {
      * array.
      *
      * @param a the array whose elements are to be placed into this bag
-     * @throws NullPointerException if the specified array is null
+     * @throws IllegalArgumentException if the specified array is {@code null}
      */
-    public ArrayBag(final E[] a) {
-        this(a.length);
+    @SuppressWarnings("unchecked")
+    public ArrayBag(@Nonnull final E[] a) {
+        ensureNotNull(a);
+
+        items = (E[]) new Object[a.length];
         addAll(a);
     }
 
@@ -73,7 +81,7 @@ public class ArrayBag<E> extends AbstractBag<E> {
      * {@inheritDoc}
      */
     @Override
-    public boolean add(E item) {
+    public boolean add(@Nullable E item) {
         ensureCapacity(size + 1);
 
         items[size++] = item;
@@ -84,9 +92,13 @@ public class ArrayBag<E> extends AbstractBag<E> {
 
     /**
      * {@inheritDoc}
+     *
+     * @throws IllegalArgumentException if the specified array is {@code null}
      */
     @Override
-    public boolean addAll(E[] a) {
+    public boolean addAll(@Nonnull E[] a) {
+        ensureNotNull(a);
+
         ensureCapacity(size + a.length);
         System.arraycopy(a, 0, items, size, a.length);
         size += a.length;
@@ -95,14 +107,54 @@ public class ArrayBag<E> extends AbstractBag<E> {
 
     /**
      * {@inheritDoc}
+     *
+     * @throws IllegalArgumentException if the specified iterable collection is {@code null}
      */
     @Override
-    public boolean addAll(Bag<E> bag) {
-        Object[] a = bag.toArray();
-        ensureCapacity(size + a.length);
-        System.arraycopy(a, 0, items, size, a.length);
-        size += a.length;
-        return a.length != 0;
+    public boolean addAll(@Nonnull Iterable<E> a) {
+        ensureNotNull(a);
+
+        boolean added = false;
+        for (E item : a) {
+            if (add(item)) {
+                added = true;
+            }
+        }
+
+        return added;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws IllegalArgumentException if the specified iterator is {@code null}
+     */
+    @Override
+    public boolean addAll(@Nonnull Iterator<E> a) {
+        ensureNotNull(a);
+
+        boolean added = false;
+        while (a.hasNext()) {
+            if (add(a.next())) {
+                added = true;
+            }
+        }
+
+        return added;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void clear() {
+        modCount++;
+
+        for (int i = 0; i < size; i++) {
+            items[i] = null;
+        }
+
+        size = 0;
     }
 
     /**
@@ -115,10 +167,14 @@ public class ArrayBag<E> extends AbstractBag<E> {
 
     /**
      * {@inheritDoc}
+     *
+     * @throws IllegalArgumentException if the specified array is {@code null}
      */
     @Override
     @SuppressWarnings("unchecked")
-    public <T> T[] toArray(T[] a) {
+    public <T> T[] toArray(@Nonnull T[] a) {
+        ensureNotNull(a);
+
         if (a.length < size) {
             return (T[]) Arrays.copyOf(items, size, a.getClass());
         }

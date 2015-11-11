@@ -1,11 +1,11 @@
-package com.codingthrough.algorithms.data.impl;
+package com.codingthrough.algorithms.adt.bag;
 
-import com.codingthrough.algorithms.data.Bag;
-
+import javax.annotation.Nullable;
 import java.util.Iterator;
 
 /**
- * Contains common methods that are the same and independent of chosen implementation strategy.
+ * Contains common methods for the bag implementations that are
+ * the same and independent of chosen implementation strategy.
  */
 public abstract class AbstractBag<E> implements Bag<E> {
     /**
@@ -46,16 +46,20 @@ public abstract class AbstractBag<E> implements Bag<E> {
      * <p>This implementation iterates over the elements in the bag,
      * checking each element in turn for equality with the specified element.
      */
-    public boolean contains(E item) {
-        Iterator<E> it = iterator();
+    public boolean contains(@Nullable E item) {
+        final Iterator<E> it = iterator();
         if (item == null) {
-            while (it.hasNext())
-                if (it.next() == null)
+            while (it.hasNext()) {
+                if (it.next() == null) {
                     return true;
+                }
+            }
         } else {
-            while (it.hasNext())
-                if (item.equals(it.next()))
+            while (it.hasNext()) {
+                if (item.equals(it.next())) {
                     return true;
+                }
+            }
         }
         return false;
     }

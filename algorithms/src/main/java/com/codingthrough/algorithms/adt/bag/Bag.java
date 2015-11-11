@@ -1,4 +1,8 @@
-package com.codingthrough.algorithms.data;
+package com.codingthrough.algorithms.adt.bag;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.Iterator;
 
 /**
  * The <tt>Bag</tt> class represents a bag (or multiset) of
@@ -11,35 +15,42 @@ public interface Bag<E> extends Iterable<E> {
      *
      * @param item the element to add
      */
-    boolean add(final E item);
+    boolean add(@Nullable final E item);
 
     /**
      * Appends all of the elements in the specified array to the bag,
      * in the order that they are returned by the specified
-     * collection's iterator (optional operation).  The behavior of this
+     * array's iterator (optional operation). The behavior of this
      * operation is undefined if the specified array is modified while
      * the operation is in progress.
-     * (Note that this will occur if the specified array is this list,
-     * and it's nonempty.)
      *
      * @param a array containing elements to be added to this bag
      * @return <tt>true</tt> if this bag changed as a result of the call
      */
-    boolean addAll(final E[] a);
+    boolean addAll(@Nonnull final E[] a);
 
     /**
-     * Appends all of the elements in the specified bag to the bag,
+     * Appends all of the elements in the specified collection to the current bag,
      * in the order that they are returned by the specified
-     * collection's iterator (optional operation).  The behavior of this
-     * operation is undefined if the specified bag is modified while
+     * collection's iterator (optional operation). The behavior of this
+     * operation is undefined if the specified collection is modified while
      * the operation is in progress.
-     * (Note that this will occur if the specified bag is this list,
-     * and it's nonempty.)
      *
-     * @param bag bag containing elements to be added to this bag
+     * @param a collection containing elements to be added to this bag
      * @return <tt>true</tt> if this bag changed as a result of the call
      */
-    boolean addAll(final Bag<E> bag);
+    boolean addAll(@Nonnull final Iterable<E> a);
+
+    /**
+     * Appends all of the elements returned by the specified
+     * collection's iterator to the current bag. The behavior of this
+     * operation is undefined if the specified collection is modified while
+     * the operation is in progress.
+     *
+     * @param a iterator returning elements to be added to this bag
+     * @return <tt>true</tt> if this bag changed as a result of the call
+     */
+    boolean addAll(@Nonnull final Iterator<E> a);
 
     /**
      * Returns <tt>true</tt> if this bag contains the specified element.
@@ -48,15 +59,21 @@ public interface Bag<E> extends Iterable<E> {
      * <tt>(o==null&nbsp;?&nbsp;e==null&nbsp;:&nbsp;o.equals(e))</tt>.
      *
      * @param item element whose presence in this bag is to be tested
-     * @return <tt>true</tt> if this bag contains the specified element
+     * @return <tt>true</tt> if this bag contains the specified element,
+     * otherwise - return <tt>false</tt>
      */
-    boolean contains(final E item);
+    boolean contains(@Nullable final E item);
 
     /**
-     * Returns <tt>true</tt> if this bag contains to elements,
+     * Removes all elements from the bag, returns to the initial state.
+     */
+    void clear();
+
+    /**
+     * Returns <tt>true</tt> if this bag contains no elements,
      * otherwise - return <tt>false</tt>.
      *
-     * @return <tt>true</tt> if this bag contains to elements,
+     * @return <tt>true</tt> if this bag contains no elements,
      * otherwise - return <tt>false</tt>
      */
     default boolean empty() {
@@ -80,8 +97,6 @@ public interface Bag<E> extends Iterable<E> {
      * allocate a new array even if this bag is backed by an array).
      * The caller is thus free to modify the returned array.
      * <p>
-     * <p>This method acts as bridge between array-based and collection-based
-     * APIs.
      *
      * @return an array containing all of the elements in this bag
      */
@@ -95,36 +110,14 @@ public interface Bag<E> extends Iterable<E> {
      * Otherwise, a new array is allocated with the runtime type of the
      * specified array and the size of this bag.
      * <p>
-     * <p>If the bag fits in the specified array with room to spare (i.e.,
-     * the array has more elements than the bag), the element in the array
-     * immediately following the end of the bag is set to <tt>null</tt>.
-     * (This is useful in determining the length of the bag <i>only</i> if
-     * the caller knows that the bag does not contain any null elements.)
-     * <p>
-     * <p>Like the {@link #toArray()} method, this method acts as bridge between
-     * array-based and collection-based APIs.  Further, this method allows
-     * precise control over the runtime type of the output array, and may,
-     * under certain circumstances, be used to save allocation costs.
-     * <p>
-     * <p>Suppose <tt>x</tt> is a bag known to contain only strings.
-     * The following code can be used to dump the bag into a newly
-     * allocated array of <tt>String</tt>:
-     * <p>
-     * <pre>{@code
-     *     String[] y = x.toArray(new String[0]);
-     * }</pre>
-     * <p>
-     * Note that <tt>toArray(new Object[0])</tt> is identical in function to
-     * <tt>toArray()</tt>.
      *
      * @param a the array into which the elements of this bag are to
      *          be stored, if it is big enough; otherwise, a new array of the
      *          same runtime type is allocated for this purpose.
      * @return an array containing the elements of this bag
-     * @throws ArrayStoreException  if the runtime type of the specified array
-     *                              is not a supertype of the runtime type of every element in
-     *                              this bag
-     * @throws NullPointerException if the specified array is null
+     * @throws ArrayStoreException if the runtime type of the specified array
+     *                             is not a supertype of the runtime type of every element in
+     *                             this bag
      */
-    <T> T[] toArray(T[] a);
+    <T> T[] toArray(@Nonnull T[] a);
 }

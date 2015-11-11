@@ -2,6 +2,8 @@ package com.codingthrough.algorithms.adt;
 
 import org.junit.Test;
 
+import java.util.NoSuchElementException;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
@@ -38,7 +40,7 @@ public class ArrayIteratorTest {
         try {
             iterator.next();
             fail("Should throw when call next for empty array.");
-        } catch (IllegalArgumentException e) {
+        } catch (NoSuchElementException e) {
             // ok, it's expected exception
         }
     }
@@ -78,7 +80,7 @@ public class ArrayIteratorTest {
         try {
             iterator.next();
             fail("Should throw when call next after iterating last element.");
-        } catch (IllegalArgumentException e) {
+        } catch (NoSuchElementException e) {
             // ok, it's expected exception
         }
     }
