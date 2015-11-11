@@ -186,7 +186,7 @@ public class PreconditionsTest {
     public void successfulParameterCheckOnNotNullWhenObjectIsNotNull() {
         final Integer obj = 1;
 
-        Preconditions.requireNotNull(obj);
+        Preconditions.ensureNotNull(obj);
     }
 
     @Test
@@ -194,7 +194,7 @@ public class PreconditionsTest {
         final Integer obj = null;
 
         try {
-            Preconditions.requireNotNull(obj);
+            Preconditions.ensureNotNull(obj);
             fail("Should throw exception when parameter is null.");
         } catch (IllegalArgumentException e) {
             // ok, it's expected exception
@@ -204,19 +204,19 @@ public class PreconditionsTest {
     @Test
     public void successfulParameterCheckOnNotNullWithMessageWhenObjectIsNotNull() {
         final Integer obj = 1;
-        final String message = "Should be not null.";
+        final String message = "Should not be null.";
 
-        final Integer actual = Preconditions.requireNotNull(obj, message);
+        final Integer actual = Preconditions.ensureNotNull(obj, message);
         assertThat(actual, is(obj));
     }
 
     @Test
     public void failedParameterCheckOnNotNullWithMessageWhenObjectIsNull() {
         final Integer obj = null;
-        final String message = "Should be not null.";
+        final String message = "Should not be null.";
 
         try {
-            Preconditions.requireNotNull(obj, message);
+            Preconditions.ensureNotNull(obj, message);
             fail("Should throw exception when parameter is null.");
         } catch (IllegalArgumentException e) {
             // ok, it's expected exception
@@ -229,7 +229,7 @@ public class PreconditionsTest {
         final Integer obj = 1;
         final Supplier<String> messageSupplier = () -> "Should not be null.";
 
-        final Integer actual = Preconditions.requireNotNull(obj, messageSupplier);
+        final Integer actual = Preconditions.ensureNotNull(obj, messageSupplier);
         assertThat(actual, is(obj));
     }
 
@@ -239,7 +239,7 @@ public class PreconditionsTest {
         final Supplier<String> messageSupplier = () -> "Should not be null.";
 
         try {
-            Preconditions.requireNotNull(obj, messageSupplier);
+            Preconditions.ensureNotNull(obj, messageSupplier);
             fail("Should throw exception when parameter is null.");
         } catch (IllegalArgumentException e) {
             // ok, it's expected exception
@@ -251,7 +251,7 @@ public class PreconditionsTest {
         final Integer obj = 1;
         final String template = "Should not be %s.";
 
-        final Integer actual = Preconditions.requireNotNull(obj, template, "null");
+        final Integer actual = Preconditions.ensureNotNull(obj, template, "null");
         assertThat(actual, is(obj));
     }
 
@@ -261,7 +261,7 @@ public class PreconditionsTest {
         final String template = "Should not be %s.";
 
         try {
-            Preconditions.requireNotNull(obj, template, "null");
+            Preconditions.ensureNotNull(obj, template, "null");
             fail("Should throw exception when parameter is null.");
         } catch (IllegalArgumentException e) {
             // ok, it's expected exception

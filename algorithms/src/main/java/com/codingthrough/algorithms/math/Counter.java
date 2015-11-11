@@ -1,11 +1,10 @@
 package com.codingthrough.algorithms.math;
 
 import com.codingthrough.algorithms.Objects;
+import com.codingthrough.algorithms.Preconditions;
 
 import javax.annotation.Nonnull;
 import java.io.Serializable;
-
-import static com.codingthrough.algorithms.Preconditions.requireNotNull;
 
 /**
  * The <tt>Counter</tt> class is a mutable data type of type {code int}
@@ -44,7 +43,7 @@ public class Counter implements Comparable<Counter>, Serializable {
      * @throws IllegalArgumentException if the specified name is {@code null}
      */
     public Counter(@Nonnull String name) {
-        requireNotNull(name, "The name of the counter should not be null.");
+        Preconditions.ensureNotNull(name, "The name of the counter should not be null.");
 
         this.name = name;
     }
@@ -64,7 +63,7 @@ public class Counter implements Comparable<Counter>, Serializable {
      * @throws IllegalArgumentException if the specified name is {@code null}
      */
     public Counter(@Nonnull String name, int count) {
-        requireNotNull(name, "The name of the counter should not be null.");
+        Preconditions.ensureNotNull(name, "The name of the counter should not be null.");
 
         this.name = name;
         this.count = count;
@@ -77,7 +76,7 @@ public class Counter implements Comparable<Counter>, Serializable {
      * @throws IllegalArgumentException if the specified counter is {@code null}
      */
     public Counter(@Nonnull Counter that) {
-        requireNotNull(that, "Counter [that] should not be null.");
+        Preconditions.ensureNotNull(that, "Counter [that] should not be null.");
 
         this.name = that.getName();
         this.count = that.tally();
@@ -132,7 +131,7 @@ public class Counter implements Comparable<Counter>, Serializable {
      */
     @Override
     public int compareTo(@Nonnull Counter that) {
-        requireNotNull(that, "Counter [that] should not be null.");
+        Preconditions.ensureNotNull(that, "Counter [that] should not be null.");
 
         if (this.tally() > that.tally()) {
             return +1;

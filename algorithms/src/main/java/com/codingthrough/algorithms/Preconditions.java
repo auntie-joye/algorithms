@@ -145,7 +145,7 @@ public class Preconditions {
      * @return the object reference
      * @throws IllegalArgumentException if {@code obj} is {@code null}
      */
-    public static <T> T requireNotNull(T obj) {
+    public static <T> T ensureNotNull(T obj) {
         if (obj == null) {
             throw new IllegalArgumentException();
         }
@@ -163,7 +163,7 @@ public class Preconditions {
      * @return the object reference
      * @throws IllegalArgumentException if {@code obj} is {@code null}
      */
-    public static <T> T requireNotNull(T obj, String errorMessage) {
+    public static <T> T ensureNotNull(T obj, String errorMessage) {
         if (obj == null) {
             throw new IllegalArgumentException(errorMessage);
         }
@@ -181,7 +181,7 @@ public class Preconditions {
      * @return the object reference
      * @throws IllegalArgumentException if {@code obj} is {@code null}
      */
-    public static <T> T requireNotNull(T obj, Supplier<String> messageSupplier) {
+    public static <T> T ensureNotNull(T obj, Supplier<String> messageSupplier) {
         if (obj == null) {
             throw new IllegalArgumentException(messageSupplier.get());
         }
@@ -201,7 +201,7 @@ public class Preconditions {
      * @return the object reference
      * @throws IllegalArgumentException if {@code obj} is {@code null}
      */
-    public static <T> T requireNotNull(T obj, String errorMessageTemplate, Object... errorMessageArgs) {
+    public static <T> T ensureNotNull(T obj, String errorMessageTemplate, Object... errorMessageArgs) {
         if (obj == null) {
             final String errorMessage = String.format(errorMessageTemplate, errorMessageArgs);
             throw new IllegalArgumentException(errorMessage);
