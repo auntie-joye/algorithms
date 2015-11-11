@@ -1,7 +1,9 @@
 package com.codingthrough.algorithms.math;
 
+import com.codingthrough.algorithms.Objects;
+
+import javax.annotation.Nonnull;
 import java.io.Serializable;
-import java.util.Objects;
 
 import static com.codingthrough.algorithms.Preconditions.requireNotNull;
 
@@ -39,7 +41,7 @@ public class Counter implements Comparable<Counter>, Serializable {
      * Creates a new counter with the specified name
      * and zero as a start position.
      */
-    public Counter(String name) {
+    public Counter(@Nonnull String name) {
         requireNotNull(name, "The name of the counter should not be null.");
 
         this.name = name;
@@ -57,7 +59,7 @@ public class Counter implements Comparable<Counter>, Serializable {
      * Creates a new counter with the specified name
      * and the specified count as a start position.
      */
-    public Counter(String name, int count) {
+    public Counter(@Nonnull String name, int count) {
         requireNotNull(name, "The name of the counter should not be null.");
 
         this.name = name;
@@ -68,7 +70,7 @@ public class Counter implements Comparable<Counter>, Serializable {
      * Creates a new counter based on the specified
      * counter name and current counter state.
      */
-    public Counter(Counter that) {
+    public Counter(@Nonnull Counter that) {
         requireNotNull(that, "Counter [that] should not be null.");
 
         this.name = that.getName();
@@ -120,7 +122,7 @@ public class Counter implements Comparable<Counter>, Serializable {
     }
 
     @Override
-    public int compareTo(Counter that) {
+    public int compareTo(@Nonnull Counter that) {
         requireNotNull(that, "Counter [that] should not be null.");
 
         if (this.tally() > that.tally()) {
@@ -153,6 +155,6 @@ public class Counter implements Comparable<Counter>, Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, count);
+        return Objects.hashCode(name, count);
     }
 }
