@@ -1,5 +1,8 @@
 package com.codingthrough.algorithms.search;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import static com.codingthrough.algorithms.Preconditions.requireNotNull;
 import static com.codingthrough.algorithms.collection.ArrayPreconditions.requireBounds;
 
@@ -27,7 +30,7 @@ public class LinearSearch extends SearchSupport {
      * @return index of the element if it's found, otherwise -1
      * @throws IllegalArgumentException if the specified array is {@code null}
      */
-    public static <T> int indexOf(T[] a, T e) {
+    public static <T> int indexOf(@Nonnull T[] a, @Nullable T e) {
         return indexOf(a, 0, a.length - 1, e);
     }
 
@@ -43,7 +46,7 @@ public class LinearSearch extends SearchSupport {
      * @throws IllegalArgumentException if the specified array is {@code null}
      * @throws IllegalArgumentException if the specified bounds are outside of array bounds
      */
-    public static <T> int indexOf(T[] a, int lo, int hi, T e) {
+    public static <T> int indexOf(@Nonnull T[] a, int lo, int hi, @Nullable T e) {
         requireNotNull(a, "Array [a] should not be null.");
         requireBounds(a.length, lo, hi);
 
@@ -76,7 +79,7 @@ public class LinearSearch extends SearchSupport {
      * @return number of duplicates
      * @throws IllegalArgumentException if the specified array is {@code null}
      */
-    public static <T> int duplicates(T[] a, T e) {
+    public static <T> int duplicates(@Nonnull T[] a, @Nullable T e) {
         return duplicates(a, 0, a.length - 1, e);
     }
 
@@ -91,7 +94,7 @@ public class LinearSearch extends SearchSupport {
      * @throws IllegalArgumentException if the specified array is {@code null}
      * @throws IllegalArgumentException if the specified bounds are outside of array bounds
      */
-    public static <T> int duplicates(T[] a, int lo, int hi, T e) {
+    public static <T> int duplicates(@Nonnull T[] a, int lo, int hi, @Nullable T e) {
         requireNotNull(a, "Array [a] should not be null.");
         requireBounds(a.length, lo, hi);
 
