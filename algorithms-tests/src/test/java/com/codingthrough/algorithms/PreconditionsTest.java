@@ -20,7 +20,7 @@ public class PreconditionsTest {
     }
 
     @Test
-    public void failedParameterCheckOnTrueWhenObjectIsFalse() {
+    public void failsParameterCheckOnTrueWhenObjectIsFalse() {
         final boolean expression = false;
 
         try {
@@ -40,7 +40,7 @@ public class PreconditionsTest {
     }
 
     @Test
-    public void failedParameterCheckOnTrueWithMessageWhenObjectIsFalse() {
+    public void failsParameterCheckOnTrueWithMessageWhenObjectIsFalse() {
         final boolean expression = false;
         final String message = "Should be true.";
 
@@ -62,7 +62,7 @@ public class PreconditionsTest {
     }
 
     @Test
-    public void failedParameterCheckOnTrueWithMessageTemplateWhenObjectIsFalse() {
+    public void failsParameterCheckOnTrueWithMessageTemplateWhenObjectIsFalse() {
         final boolean expression = false;
         final String template = "Should be %s.";
 
@@ -85,7 +85,7 @@ public class PreconditionsTest {
     }
 
     @Test
-    public void failedParameterCheckOnTrueWithMessageSupplierWhenObjectIsFalse() {
+    public void failsParameterCheckOnTrueWithMessageSupplierWhenObjectIsFalse() {
         final boolean expression = false;
         final Supplier<String> messageSupplier = () -> "Should be true.";
 
@@ -105,7 +105,7 @@ public class PreconditionsTest {
     }
 
     @Test
-    public void failedParameterCheckOnFalseWhenObjectIsTrue() {
+    public void failsParameterCheckOnFalseWhenObjectIsTrue() {
         final boolean expression = true;
 
         try {
@@ -125,7 +125,7 @@ public class PreconditionsTest {
     }
 
     @Test
-    public void failedParameterCheckOnFalseWithMessageWhenObjectIsTrue() {
+    public void failsParameterCheckOnFalseWithMessageWhenObjectIsTrue() {
         final boolean expression = true;
         final String message = "Should be false.";
 
@@ -147,7 +147,7 @@ public class PreconditionsTest {
     }
 
     @Test
-    public void failedParameterCheckOnFalseWithMessageTemplateWhenObjectIsTrue() {
+    public void failsParameterCheckOnFalseWithMessageTemplateWhenObjectIsTrue() {
         final boolean expression = true;
         final String template = "Should be %s.";
 
@@ -170,7 +170,7 @@ public class PreconditionsTest {
     }
 
     @Test
-    public void failedParameterCheckOnFalseWithMessageSupplierWhenObjectIsTrue() {
+    public void failsParameterCheckOnFalseWithMessageSupplierWhenObjectIsTrue() {
         final boolean expression = true;
         final Supplier<String> messageSupplier = () -> "Should be false.";
 
@@ -190,7 +190,7 @@ public class PreconditionsTest {
     }
 
     @Test
-    public void failedParameterCheckOnNotNullWhenObjectIsNull() {
+    public void failsParameterCheckOnNotNullWhenObjectIsNull() {
         final Integer obj = null;
 
         try {
@@ -211,7 +211,7 @@ public class PreconditionsTest {
     }
 
     @Test
-    public void failedParameterCheckOnNotNullWithMessageWhenObjectIsNull() {
+    public void failsParameterCheckOnNotNullWithMessageWhenObjectIsNull() {
         final Integer obj = null;
         final String message = "Should not be null.";
 
@@ -234,7 +234,7 @@ public class PreconditionsTest {
     }
 
     @Test
-    public void failedParameterCheckOnNotNullWithMessageSupplierWhenObjectIsNull() {
+    public void failsParameterCheckOnNotNullWithMessageSupplierWhenObjectIsNull() {
         final Integer obj = null;
         final Supplier<String> messageSupplier = () -> "Should not be null.";
 
@@ -256,7 +256,7 @@ public class PreconditionsTest {
     }
 
     @Test
-    public void failedParameterCheckOnNotNullWithMessageTemplateWhenObjectIsNull() {
+    public void failsParameterCheckOnNotNullWithMessageTemplateWhenObjectIsNull() {
         final Integer obj = null;
         final String template = "Should not be %s.";
 
@@ -278,7 +278,7 @@ public class PreconditionsTest {
     }
 
     @Test
-    public void failedParameterCheckOnNullWhenObjectIsNotNull() {
+    public void failsParameterCheckOnNullWhenObjectIsNotNull() {
         final Integer obj = 2;
 
         try {
@@ -298,7 +298,7 @@ public class PreconditionsTest {
     }
 
     @Test
-    public void failedParameterCheckOnNullWithMessageWhenObjectIsNotNull() {
+    public void failsParameterCheckOnNullWithMessageWhenObjectIsNotNull() {
         final Integer obj = 2;
         final String message = "Should be null.";
 
@@ -320,7 +320,7 @@ public class PreconditionsTest {
     }
 
     @Test
-    public void failedParameterCheckOnNullWithMessageTemplateWhenObjectIsNotNull() {
+    public void failsParameterCheckOnNullWithMessageTemplateWhenObjectIsNotNull() {
         final Integer obj = 2;
         final String template = "Should be %s.";
 
@@ -343,7 +343,7 @@ public class PreconditionsTest {
     }
 
     @Test
-    public void failedParameterCheckOnNullWithMessageSupplierWhenObjectIsNotNull() {
+    public void failsParameterCheckOnNullWithMessageSupplierWhenObjectIsNotNull() {
         final Integer obj = 2;
         final Supplier<String> messageSupplier = () -> "Should be null.";
 

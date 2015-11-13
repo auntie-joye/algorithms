@@ -78,6 +78,7 @@ public class LinkedBag<E> extends AbstractBag<E> {
      */
     @Override
     public boolean addAll(@Nonnull final Iterable<E> a) {
+        ensureNotNull(a);
         return addAll(a.iterator());
     }
 

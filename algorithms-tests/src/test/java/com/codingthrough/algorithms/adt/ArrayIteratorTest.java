@@ -73,7 +73,7 @@ public class ArrayIteratorTest {
 
     @Test
     public void throwsWhenCallNextAfterIteratingLastElement() {
-        final Integer[] a = new Integer[0];
+        final Integer[] a = new Integer[]{1};
         final ArrayIterator<Integer> iterator = new ArrayIterator<>(a);
         iterator.next();
 

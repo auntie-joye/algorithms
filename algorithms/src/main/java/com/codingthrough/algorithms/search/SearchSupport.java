@@ -80,7 +80,8 @@ public abstract class SearchSupport {
      * @throws IllegalArgumentException if the specified array is {@code null}
      */
     public static <T extends Comparable<T>> boolean sorted(@Nonnull T[] a) {
-        return sorted(a, 0, a.length - 1);
+        Preconditions.ensureNotNull(a, "Array [a] should not be null.");
+        return a.length == 0 || sorted(a, 0, a.length - 1);
     }
 
     /**
@@ -107,7 +108,8 @@ public abstract class SearchSupport {
      * @throws IllegalArgumentException if the specified comparator is {@code null}
      */
     public static <T> boolean sorted(@Nonnull T[] a, @Nonnull Comparator<T> c) {
-        return sorted(a, 0, a.length - 1, c);
+        Preconditions.ensureNotNull(a, "Array [a] should not be null.");
+        return a.length == 0 || sorted(a, 0, a.length - 1, c);
     }
 
     /**

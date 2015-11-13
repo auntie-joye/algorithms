@@ -32,7 +32,8 @@ public class LinearSearch extends SearchSupport {
      * @throws IllegalArgumentException if the specified array is {@code null}
      */
     public static <T> int indexOf(@Nonnull T[] a, @Nullable T e) {
-        return indexOf(a, 0, a.length - 1, e);
+        Preconditions.ensureNotNull(a, "Array [a] should not be null.");
+        return a.length == 0 ? -1 : indexOf(a, 0, a.length - 1, e);
     }
 
     /**
@@ -81,7 +82,8 @@ public class LinearSearch extends SearchSupport {
      * @throws IllegalArgumentException if the specified array is {@code null}
      */
     public static <T> int duplicates(@Nonnull T[] a, @Nullable T e) {
-        return duplicates(a, 0, a.length - 1, e);
+        Preconditions.ensureNotNull(a, "Array [a] should not be null.");
+        return a.length == 0 ? 0 : duplicates(a, 0, a.length - 1, e);
     }
 
     /**

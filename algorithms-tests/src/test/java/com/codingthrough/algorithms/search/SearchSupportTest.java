@@ -6,6 +6,7 @@ import java.util.Comparator;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 /**
  * Unit tests for {@link SearchSupport}.
@@ -79,7 +80,7 @@ public class SearchSupportTest {
     }
 
     @Test
-    public void throwsWhenForGreaterNullWithValue() {
+    public void throwsWhenCheckForGreaterNullWithValue() {
         try {
             SearchSupport.greater(null, 3);
         } catch (IllegalArgumentException e) {
@@ -88,7 +89,7 @@ public class SearchSupportTest {
     }
 
     @Test
-    public void throwsWhenForGreaterValueWithNull() {
+    public void throwsWhenCheckForGreaterValueWithNull() {
         try {
             SearchSupport.greater(3, null);
         } catch (IllegalArgumentException e) {
@@ -97,14 +98,14 @@ public class SearchSupportTest {
     }
 
     @Test
-    public void returnsFalseWhenForGreaterTheSameReference() {
+    public void returnsFalseWhenCheckForGreaterTheSameReference() {
         final Integer value = 3;
 
         assertThat(SearchSupport.greater(value, value), is(false));
     }
 
     @Test
-    public void returnsFalseWhenForGreaterEqualsValues() {
+    public void returnsFalseWhenCheckForGreaterEqualsValues() {
         final Integer a = 3;
         final Integer b = 3;
 
@@ -112,7 +113,7 @@ public class SearchSupportTest {
     }
 
     @Test
-    public void returnsFalseWhenForGreaterGreaterValueWithLessValue() {
+    public void returnsFalseWhenCheckForGreaterGreaterValueWithLessValue() {
         final Integer a = 5;
         final Integer b = 3;
 
@@ -120,7 +121,7 @@ public class SearchSupportTest {
     }
 
     @Test
-    public void returnsTrueWhenForGreaterLessValueWithGreaterValue() {
+    public void returnsTrueWhenCheckForGreaterLessValueWithGreaterValue() {
         final Integer a = 3;
         final Integer b = 5;
 
@@ -188,7 +189,7 @@ public class SearchSupportTest {
     }
 
     @Test
-    public void throwsWhenCheckArrayWithBoundsAndLowBoundGreaterUpperBound() {
+    public void throwsWhenCheckArrayWithBoundsForSortedAndLowBoundGreaterUpperBound() {
         final Integer[] a = new Integer[]{1, 2, 3};
         try {
             SearchSupport.sorted(a, 2, 1);
@@ -198,7 +199,7 @@ public class SearchSupportTest {
     }
 
     @Test
-    public void throwsWhenCheckArrayWithBoundsAndLowBoundLessThanTheFirstArrayIndex() {
+    public void throwsWhenCheckArrayWithBoundsForSortedAndLowBoundLessThanTheFirstArrayIndex() {
         final Integer[] a = new Integer[]{1, 2};
         try {
             SearchSupport.sorted(a, -1, 1);
@@ -208,7 +209,7 @@ public class SearchSupportTest {
     }
 
     @Test
-    public void throwsWhenCheckArrayWithBoundsAndUpperBoundGreaterThanArrayLength() {
+    public void throwsWhenCheckArrayWithBoundsForSortedAndUpperBoundGreaterThanArrayLength() {
         final Integer[] a = new Integer[]{1, 2};
         try {
             SearchSupport.sorted(a, 0, 3);
@@ -218,7 +219,7 @@ public class SearchSupportTest {
     }
 
     @Test
-    public void throwsWhenCheckArrayWithBoundsAndUpperBoundEqualsArrayLength() {
+    public void throwsWhenCheckArrayWithBoundsForSortedAndUpperBoundEqualsArrayLength() {
         final Integer[] a = new Integer[]{1, 2};
         try {
             SearchSupport.sorted(a, 0, 2);
@@ -228,10 +229,15 @@ public class SearchSupportTest {
     }
 
     @Test
-    public void returnsTrueWhenCheckEmptyArrayWithBoundsForSorted() {
+    public void throwsWhenCheckEmptyArrayWithBoundsForSorted() {
         final Integer[] a = new Integer[0];
 
-        assertThat(SearchSupport.sorted(a, 0, 0), is(true));
+        try {
+            SearchSupport.sorted(a, 0, 0);
+            fail("Should throw when check for sorted in empty array with bounds.");
+        } catch (IllegalArgumentException e) {
+            // ok, it's expected exception
+        }
     }
 
     @Test
@@ -418,7 +424,7 @@ public class SearchSupportTest {
     @Test
     public void returnsTrueWhenCheckArrayForSortedWithComparator() {
         final Integer[] a = new Integer[]{4, 2, 3, 5};
-        final Comparator<Integer> c = (b, d) -> -1;
+        final Comparator<Integer> c = (b, d) -> 1;
 
         assertThat(SearchSupport.sorted(a, c), is(true));
     }
@@ -426,7 +432,7 @@ public class SearchSupportTest {
     @Test
     public void returnsFalseWhenCheckArrayForSortedWithComparator() {
         final Integer[] a = new Integer[]{4, 2, 3, 5};
-        final Comparator<Integer> c = (b, d) -> 1;
+        final Comparator<Integer> c = (b, d) -> -1;
 
         assertThat(SearchSupport.sorted(a, c), is(false));
     }

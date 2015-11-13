@@ -24,13 +24,18 @@ public class ArrayPreconditionsTest {
     }
 
     @Test
-    public void successfulCheckWhenAllParametersAreZeros() {
-        ArrayPreconditions.ensureBounds(0, 0, 0);
+    public void throwsCheckWhenAllParametersAreZeros() {
+        try {
+            ArrayPreconditions.ensureBounds(0, 0, 0);
+            fail("Should throw when array is empty and all other indexes are zero.");
+        } catch (IllegalArgumentException e) {
+            // it's expected exception
+        }
     }
 
     @Test
     public void successfulCheckWhenArrayHasOneElement() {
-        ArrayPreconditions.ensureBounds(1, 0, 1);
+        ArrayPreconditions.ensureBounds(1, 0, 0);
     }
 
     @Test
@@ -39,7 +44,7 @@ public class ArrayPreconditionsTest {
     }
 
     @Test
-    public void failedWhenLowBoundIsGreaterThanUpperBound() {
+    public void failsWhenLowBoundIsGreaterThanUpperBound() {
         try {
             ArrayPreconditions.ensureBounds(3, 2, 1);
             fail("Should throw when low bound is greater than upper bound.");
@@ -49,7 +54,7 @@ public class ArrayPreconditionsTest {
     }
 
     @Test
-    public void failedWhenLowBoundIsLessThenTheFirstArrayIndex() {
+    public void failsWhenLowBoundIsLessThenTheFirstArrayIndex() {
         try {
             ArrayPreconditions.ensureBounds(3, -1, 1);
             fail("Should throw when low bound is less then the first array index.");
@@ -59,7 +64,7 @@ public class ArrayPreconditionsTest {
     }
 
     @Test
-    public void failedWhenUpperBoundIsGreaterThenTheLastArrayIndex() {
+    public void failsWhenUpperBoundIsGreaterThenTheLastArrayIndex() {
         try {
             ArrayPreconditions.ensureBounds(3, 1, 3);
             fail("Should throw when upper bound is greater then the last array index.");

@@ -6,8 +6,9 @@ import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import static com.codingthrough.algorithms.matchers.IsIteratorContainingInAnyOrder.containsInAnyOrder;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.nullValue;
+import static org.hamcrest.Matchers.arrayContainingInAnyOrder;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
@@ -134,13 +135,7 @@ public class LinkedBagTest {
         bag.add(3);
 
         final Iterator<Integer> iterator = bag.iterator();
-        assertThat(iterator.hasNext(), is(true));
-        assertThat(iterator.next(), is(1));
-        assertThat(iterator.hasNext(), is(true));
-        assertThat(iterator.next(), is(2));
-        assertThat(iterator.hasNext(), is(true));
-        assertThat(iterator.next(), is(3));
-        assertThat(iterator.hasNext(), is(false));
+        assertThat(iterator, containsInAnyOrder(1, 2, 3));
     }
 
     @Test
@@ -216,13 +211,7 @@ public class LinkedBagTest {
         bag.addAll(a);
 
         final Iterator<Integer> iterator = bag.iterator();
-        assertThat(iterator.hasNext(), is(true));
-        assertThat(iterator.next(), is(1));
-        assertThat(iterator.hasNext(), is(true));
-        assertThat(iterator.next(), is(2));
-        assertThat(iterator.hasNext(), is(true));
-        assertThat(iterator.next(), is(3));
-        assertThat(iterator.hasNext(), is(false));
+        assertThat(iterator, containsInAnyOrder(1, 2, 3));
     }
 
     @Test
@@ -311,20 +300,14 @@ public class LinkedBagTest {
         bag.addAll(other);
 
         final Iterator<Integer> iterator = bag.iterator();
-        assertThat(iterator.hasNext(), is(true));
-        assertThat(iterator.next(), is(1));
-        assertThat(iterator.hasNext(), is(true));
-        assertThat(iterator.next(), is(2));
-        assertThat(iterator.hasNext(), is(true));
-        assertThat(iterator.next(), is(3));
-        assertThat(iterator.hasNext(), is(false));
+        assertThat(iterator, containsInAnyOrder(1, 2, 3));
     }
 
     @Test
     public void canConvertEmptyBagToArray() {
         final Bag<Integer> bag = new LinkedBag<>();
 
-        final Integer[] actual = (Integer[]) bag.toArray();
+        final Object[] actual = bag.toArray();
 
         assertThat(actual.length, is(0));
     }
@@ -335,11 +318,10 @@ public class LinkedBagTest {
         bag.add(1);
         bag.add(2);
 
-        final Integer[] actual = (Integer[]) bag.toArray();
+        final Object[] actual = bag.toArray();
 
         assertThat(actual.length, is(2));
-        assertThat(actual[0], is(1));
-        assertThat(actual[1], is(2));
+        assertThat(actual, arrayContainingInAnyOrder(1, 2));
     }
 
     @Test
@@ -349,12 +331,10 @@ public class LinkedBagTest {
         bag.add(null);
         bag.add(2);
 
-        final Integer[] actual = (Integer[]) bag.toArray();
+        final Object[] actual = bag.toArray();
 
         assertThat(actual.length, is(3));
-        assertThat(actual[0], is(1));
-        assertThat(actual[1], is(nullValue()));
-        assertThat(actual[2], is(2));
+        assertThat(actual, arrayContainingInAnyOrder(1, 2, null));
     }
 
     @Test
@@ -401,8 +381,7 @@ public class LinkedBagTest {
         final Integer[] actual = bag.toArray(a);
 
         assertThat(actual.length, is(2));
-        assertThat(actual[0], is(1));
-        assertThat(actual[1], is(2));
+        assertThat(actual, arrayContainingInAnyOrder(1, 2));
     }
 
     @Test
@@ -416,8 +395,7 @@ public class LinkedBagTest {
         final Integer[] actual = bag.toArray(a);
 
         assertThat(actual.length, is(2));
-        assertThat(actual[0], is(1));
-        assertThat(actual[1], is(2));
+        assertThat(actual, arrayContainingInAnyOrder(1, 2));
     }
 
     @Test
@@ -431,8 +409,7 @@ public class LinkedBagTest {
         final Integer[] actual = bag.toArray(a);
 
         assertThat(actual.length, is(3));
-        assertThat(actual[0], is(1));
-        assertThat(actual[1], is(2));
+        assertThat(actual, arrayContainingInAnyOrder(1, 2, null));
     }
 
     @Test
@@ -447,9 +424,7 @@ public class LinkedBagTest {
         final Integer[] actual = bag.toArray(a);
 
         assertThat(actual.length, is(3));
-        assertThat(actual[0], is(1));
-        assertThat(actual[1], is(nullValue()));
-        assertThat(actual[2], is(2));
+        assertThat(actual, arrayContainingInAnyOrder(1, 2, null));
     }
 
     @Test
@@ -465,7 +440,7 @@ public class LinkedBagTest {
         try {
             iterator.next();
             fail("Should throw when call next after iterating over last element.");
-        } catch (IllegalArgumentException e) {
+        } catch (NoSuchElementException e) {
             // ok, it's expected exception
         }
     }
@@ -483,7 +458,7 @@ public class LinkedBagTest {
         try {
             iterator.next();
             fail("Should throw when add element to bag during iteration.");
-        } catch (NoSuchElementException e) {
+        } catch (ConcurrentModificationException e) {
             // ok, it's expected exception
         }
     }
@@ -521,7 +496,7 @@ public class LinkedBagTest {
         bag.addAll(a);
 
         final Integer actual = iterator.next();
-        assertThat(actual, is(2));
+        assertThat(actual, is(1));
     }
 
     @Test

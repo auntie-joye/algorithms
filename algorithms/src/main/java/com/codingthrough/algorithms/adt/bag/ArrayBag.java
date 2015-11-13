@@ -99,10 +99,17 @@ public class ArrayBag<E> extends AbstractBag<E> {
     public boolean addAll(@Nonnull E[] a) {
         ensureNotNull(a);
 
+        if (a.length == 0) {
+            return false;
+        }
+
         ensureCapacity(size + a.length);
+
+        modCount++;
         System.arraycopy(a, 0, items, size, a.length);
         size += a.length;
-        return a.length != 0;
+
+        return true;
     }
 
     /**

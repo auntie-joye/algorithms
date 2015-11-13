@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 /**
  * Unit tests for {@link LinearSearch}.
@@ -19,21 +20,21 @@ public class LinearSearchTest {
     }
 
     @Test
-    public void failedWhenFindIndexInEmptyArray() {
+    public void failsWhenFindIndexInEmptyArray() {
         final Integer[] a = new Integer[0];
 
         assertThat(LinearSearch.indexOf(a, 2), is(-1));
     }
 
     @Test
-    public void failedWhenFindIndexInArrayWithNoSuchElement() {
+    public void failsWhenFindIndexInArrayWithNoSuchElement() {
         final Integer[] a = new Integer[]{1, 3, 4, 5};
 
         assertThat(LinearSearch.indexOf(a, 2), is(-1));
     }
 
     @Test
-    public void failedWhenFindIndexInArrayWithNoSuchElementAndNullValues() {
+    public void failsWhenFindIndexInArrayWithNoSuchElementAndNullValues() {
         final Integer[] a = new Integer[]{1, null, 4, null};
 
         assertThat(LinearSearch.indexOf(a, 2), is(-1));
@@ -84,21 +85,26 @@ public class LinearSearchTest {
     }
 
     @Test
-    public void failedWhenFindIndexInEmptyArrayWithBounds() {
+    public void throwsWhenFindIndexInEmptyArrayWithBounds() {
         final Integer[] a = new Integer[0];
 
-        assertThat(LinearSearch.indexOf(a, 0, 0, 2), is(-1));
+        try {
+            LinearSearch.indexOf(a, 0, 0, 2);
+            fail("Should throw when call indexOf() on empty array with bounds.");
+        } catch (IllegalArgumentException e) {
+            // ok, it's expected exception
+        }
     }
 
     @Test
-    public void failedWhenFindIndexInArrayWithBoundsWithNoSuchElement() {
+    public void failsWhenFindIndexInArrayWithBoundsWithNoSuchElement() {
         final Integer[] a = new Integer[]{1, 3, 4, 5};
 
         assertThat(LinearSearch.indexOf(a, 1, 3, 1), is(-1));
     }
 
     @Test
-    public void failedWhenFindIndexInArrayWithBoundsWithNoSuchElementAndNullValues() {
+    public void failsWhenFindIndexInArrayWithBoundsWithNoSuchElementAndNullValues() {
         final Integer[] a = new Integer[]{1, null, 4, null};
 
         assertThat(LinearSearch.indexOf(a, 1, 3, 1), is(-1));
@@ -115,7 +121,7 @@ public class LinearSearchTest {
     public void canFindIndexOfFirstElementInArrayWithBounds() {
         final Integer[] a = new Integer[]{1, 3, null, 5};
 
-        assertThat(LinearSearch.indexOf(a, 1, 2, 3), is(0));
+        assertThat(LinearSearch.indexOf(a, 1, 2, 3), is(1));
     }
 
     @Test
@@ -136,7 +142,7 @@ public class LinearSearchTest {
     public void canFindFirstIndexOfElementWithRepetitionsInArrayWithBounds() {
         final Integer[] a = new Integer[]{1, 2, 3, 4, 3, 7, 6};
 
-        assertThat(LinearSearch.indexOf(a, 1, 4, 3), is(1));
+        assertThat(LinearSearch.indexOf(a, 1, 4, 3), is(2));
     }
 
     @Test
@@ -189,21 +195,21 @@ public class LinearSearchTest {
     }
 
     @Test
-    public void failedWhenCountDuplicatesInEmptyArray() {
+    public void failsWhenCountDuplicatesInEmptyArray() {
         final Integer[] a = new Integer[0];
 
         assertThat(LinearSearch.duplicates(a, 2), is(0));
     }
 
     @Test
-    public void failedWhenCountDuplicatesInArrayWithNoSuchElement() {
+    public void failsWhenCountDuplicatesInArrayWithNoSuchElement() {
         final Integer[] a = new Integer[]{1, 3, 4, 5};
 
         assertThat(LinearSearch.duplicates(a, 2), is(0));
     }
 
     @Test
-    public void failedWhenCountDuplicatesInArrayWithNoSuchElementAndNullValues() {
+    public void failsWhenCountDuplicatesInArrayWithNoSuchElementAndNullValues() {
         final Integer[] a = new Integer[]{1, null, 4, null};
 
         assertThat(LinearSearch.duplicates(a, 2), is(0));
@@ -247,21 +253,26 @@ public class LinearSearchTest {
     }
 
     @Test
-    public void failedWhenCountDuplicatesInEmptyArrayWithBounds() {
+    public void throwsWhenCountDuplicatesInEmptyArrayWithBounds() {
         final Integer[] a = new Integer[0];
 
-        assertThat(LinearSearch.duplicates(a, 0, 0, 2), is(0));
+        try {
+            LinearSearch.duplicates(a, 0, 0, 2);
+            fail("Should throw when call duplicates() on empty array with bounds.");
+        } catch (IllegalArgumentException e) {
+            // ok, it's expected exception
+        }
     }
 
     @Test
-    public void failedWhenCountDuplicatesInArrayWithBoundsWithNoSuchElement() {
+    public void failsWhenCountDuplicatesInArrayWithBoundsWithNoSuchElement() {
         final Integer[] a = new Integer[]{1, 3, 4, 5};
 
         assertThat(LinearSearch.duplicates(a, 1, 3, 1), is(0));
     }
 
     @Test
-    public void failedWhenCountDuplicatesInArrayWithBoundsWithNoSuchElementAndNullValues() {
+    public void failsWhenCountDuplicatesInArrayWithBoundsWithNoSuchElementAndNullValues() {
         final Integer[] a = new Integer[]{1, null, 4, null};
 
         assertThat(LinearSearch.duplicates(a, 1, 3, 1), is(0));

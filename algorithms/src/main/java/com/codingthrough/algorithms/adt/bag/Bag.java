@@ -96,7 +96,6 @@ public interface Bag<E> extends Iterable<E> {
      * maintained by this bag.  (In other words, this method must
      * allocate a new array even if this bag is backed by an array).
      * The caller is thus free to modify the returned array.
-     * <p>
      *
      * @return an array containing all of the elements in this bag
      */
@@ -109,7 +108,6 @@ public interface Bag<E> extends Iterable<E> {
      * If the bag fits in the specified array, it is returned therein.
      * Otherwise, a new array is allocated with the runtime type of the
      * specified array and the size of this bag.
-     * <p>
      *
      * @param a the array into which the elements of this bag are to
      *          be stored, if it is big enough; otherwise, a new array of the
