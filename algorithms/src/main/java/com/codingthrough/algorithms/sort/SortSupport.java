@@ -31,10 +31,10 @@ public abstract class SortSupport {
     /**
      * Swaps item with index {@param x} and the item with index {@param y}.
      */
-    protected static <T> void swap(T[] a, int x, int y) {
-        final T temp = a[x];
-        a[x] = a[y];
-        a[y] = temp;
+    protected static <T> void swap(T[] a, int i, int j) {
+        final T temp = a[i];
+        a[i] = a[j];
+        a[j] = temp;
     }
 
     /**
